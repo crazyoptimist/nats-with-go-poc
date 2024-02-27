@@ -5,6 +5,9 @@ services:
     image: nats:2
     container_name: nats-server
     ports:
+      # 4222 is for clients.
+      # 8222 is an HTTP management port for information reporting.
+      # 6222 is a routing port for clustering.
       - 4222:4222
       - 6222:6222
       - 8222:8222
