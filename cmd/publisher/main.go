@@ -1,6 +1,8 @@
 package main
 
 import (
+	"log"
+	"os"
 	"time"
 
 	"github.com/nats-io/nats.go"
@@ -8,9 +10,15 @@ import (
 
 func main() {
 
-	url := "localhost:4222"
+	url := os.Getenv("NATS_URL")
+	if url == "" {
+		url = nats.DefaultURL
+	}
 
-	nc, _ := nats.Connect(url)
+	nc, err := nats.Connect(url)
+	if err != nil {
+		log.Fatalln("connection to nats server failed")
+	}
 
 	defer nc.Drain()
 
