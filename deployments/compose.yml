@@ -1,20 +1,51 @@
-version: '3'
-
+version: '3.9'
 services:
-  nats-main:
+  nats_a:
     image: nats:2
-    command:
-      - "--jetstream"
-      - "--store_dir=/nats/storage"
     ports:
-      # 4222 is for clients.
-      # 8222 is an HTTP management port for information reporting.
-      # 6222 is a routing port for clustering.
-      - 4222:4222
-      - 6222:6222
-      - 8222:8222
+      - "4222:4222"
+      - "8222:8222"
     volumes:
-      - nats-storage:/nats/storage
+      - nats_a:/data
+    command:
+      - "--name=nats_a"
+      - "--cluster_name=c1"
+      - "--cluster=nats://nats_a:6222"
+      - "--routes=nats://nats_b:6222,nats://nats_c:6222"
+      - "--jetstream"
+      - "--store_dir=/data"
+
+  nats_b:
+    image: nats:2
+    ports:
+      - "4223:4222"
+      - "8223:8222"
+    volumes:
+      - nats_b:/data
+    command:
+      - "--name=nats_b"
+      - "--cluster_name=c1"
+      - "--cluster=nats://nats_b:6222"
+      - "--routes=nats://nats_a:6222,nats://nats_c:6222"
+      - "--jetstream"
+      - "--store_dir=/data"
+
+  nats_c:
+    image: nats:2
+    ports:
+      - "4224:4222"
+      - "8224:8222"
+    volumes:
+      - nats_c:/data
+    command:
+      - "--name=nats_c"
+      - "--cluster_name=c1"
+      - "--cluster=nats://nats_c:6222"
+      - "--routes=nats://nats_a:6222,nats://nats_b:6222"
+      - "--jetstream"
+      - "--store_dir=/data"
 
 volumes:
-  nats-storage:
+  nats_a:
+  nats_b:
+  nats_c:

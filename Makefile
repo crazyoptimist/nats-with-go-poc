@@ -1,3 +1,9 @@
+up:
+	@docker compose -f ./deployments/compose.yml up -d
+down:
+	@docker compose -f ./deployments/compose.yml down
+log:
+	@docker compose -f ./deployments/compose.yml logs -f
 pub:
 	@go run ./cmd/publisher/main.go
 sub:
