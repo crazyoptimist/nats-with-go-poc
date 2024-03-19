@@ -12,6 +12,7 @@ services:
       - "--cluster_name=c1"
       - "--cluster=nats://nats_a:6222"
       - "--routes=nats://nats_b:6222,nats://nats_c:6222"
+      - "--http_port=8222"
       - "--jetstream"
       - "--store_dir=/data"
 
@@ -27,6 +28,7 @@ services:
       - "--cluster_name=c1"
       - "--cluster=nats://nats_b:6222"
       - "--routes=nats://nats_a:6222,nats://nats_c:6222"
+      - "--http_port=8222"
       - "--jetstream"
       - "--store_dir=/data"
 
@@ -42,6 +44,7 @@ services:
       - "--cluster_name=c1"
       - "--cluster=nats://nats_c:6222"
       - "--routes=nats://nats_a:6222,nats://nats_b:6222"
+      - "--http_port=8222"
       - "--jetstream"
       - "--store_dir=/data"
 
