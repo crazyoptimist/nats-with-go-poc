@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
-	"time"
+	"os/signal"
+	"syscall"
 
 	"github.com/nats-io/nats.go"
 )
@@ -32,8 +33,10 @@ func main() {
 		fmt.Println("subscribe failed: ", err)
 	}
 
-	time.Sleep(time.Minute)
-	if err := sub.Unsubscribe(); err != nil {
-		fmt.Println("unsubscribe failed: ", err)
-	}
+	defer sub.Unsubscribe()
+
+	// Keep the program running until interrupted
+	quitChan := make(chan os.Signal, 1)
+	signal.Notify(quitChan, syscall.SIGINT, syscall.SIGTERM)
+	<-quitChan
 }
