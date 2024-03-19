@@ -5,10 +5,10 @@ down:
 log:
 	@docker compose -f ./deployments/compose.yml logs -f
 pub:
-	@go run ./cmd/publisher/main.go
+	@go run ./cmd/pubsub/publisher/main.go
 sub:
-	@go run ./cmd/subscriber/main.go
+	@go run ./cmd/pubsub/subscriber/main.go
 reply:
-	@go run ./cmd/replier/main.go
+	@go run ./cmd/requestreply/replier/main.go
 request:
-	@go run ./cmd/requester/main.go
+	@go run ./cmd/requestreply/requester/main.go
