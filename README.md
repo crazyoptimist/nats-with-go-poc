@@ -1,6 +1,14 @@
 # NATS POC
 
-Hello, NATS
+Hello, NATS!
+
+NATS is awesome!
+
+## NATS Cluster
+
+```bash
+make up
+```
 
 ## PubSub
 
@@ -23,6 +31,10 @@ make request
 ```
 
 ## Limit Based Stream
+
+```bash
+make createstream
+```
 
 ```bash
 make consume
